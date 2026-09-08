@@ -1528,44 +1528,6 @@ For larger changes, open an issue first to discuss the proposed approach.
 
 ---
 
-# 📄 License
 
-This project is licensed under the MIT License.
-
-See the `LICENSE` file for details.
-
----
-
-# 👨‍💻 Author
-
-**Your Name**
-
-Built as a hands-on exploration of classical computer vision, image processing, feature extraction, and the transition toward machine learning.
-
----
-
-## ⭐ Project Philosophy
-
-> **Don't start with the model. Start by understanding the data.**
-
-This project intentionally begins with pixels, transforms them into objects, converts objects into measurable features, and only then moves toward machine learning.
-
-```text
-Pixels
-  ↓
-Images
-  ↓
-Binary Regions
-  ↓
-Contours
-  ↓
-Features
-  ↓
-Rules
-  ↓
-[Future: Machine Learning]
-```
-
-The machine-learning stage will be added only after the classical computer vision pipeline is understood and working.
     
 
