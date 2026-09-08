@@ -1,4 +1,4 @@
-# 🔷 Real-Time Shape Detector
+#Real-Time Shape Detector
 
 ### A classical computer vision pipeline for detecting and classifying geometric shapes from a webcam using OpenCV
 
