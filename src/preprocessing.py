@@ -13,15 +13,22 @@ def canny_edge_detection(frame, low_threshold=50, high_threshold=150):
 
 def to_threshold(frame):
     blur = cv2.GaussianBlur(frame, (3, 3), 1)
-    thresh = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+    thresh = cv2.adaptiveThreshold(
+        blur,
+        255,
+        cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+        cv2.THRESH_BINARY_INV,
+        31,
+        7
+    )
     return thresh
 
 def dilate(binary):
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
     dilated = cv2.dilate(binary, kernel, iterations=1)
     return dilated
 def erode(binary):
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
     eroded = cv2.erode(binary, kernel, iterations=1)
     return eroded
 

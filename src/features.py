@@ -36,7 +36,7 @@ def circularity(contour):
 def corner_count(contour):
     perimeter = cv2.arcLength(contour, True)
 
-    epsilon = 0.05 * perimeter
+    epsilon = 0.02 * perimeter
 
     approximation = cv2.approxPolyDP(
         contour,

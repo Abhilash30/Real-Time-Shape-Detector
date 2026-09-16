@@ -1,6 +1,8 @@
 import cv2
 import os
 from datetime import datetime
+from dataset import save_sample
+from dataset import create_dataset
 
 from webcam import open_camera, get_frame
 from preprocessing import to_grayscale
@@ -23,7 +25,7 @@ WINDOW_CLOSING = "Closing (clean binary)"
 WINDOW_CONTOURS = "Contours"
 def main():
     os.makedirs(SAVE_DIR, exist_ok=True)
-
+    create_dataset()
     cap = open_camera()
     if cap is None:
         return
@@ -42,26 +44,30 @@ def main():
             #can = canny_edge_detection(gray)
             binary = to_threshold(gray)
             cleaned = clean_binary(binary)
-            contours = find_contours(cleaned)
+            contours = find_contours(binary)
             display_frame = cleaned.copy()
             # cv2.imshow(WINDOW_ORIGINAL, frame)
             # cv2.imshow(WINDOW_GRAY, gray)
             # cv2.imshow(WINDOW_BINARY, binary)
             
             display_frame = frame.copy()
-           
 
-           
+
+          
             for contour in contours:
-
+                
+                area = contour_area(contour)
+                perimeter = contour_perimeter(contour)
                 vertices = corner_count(contour)
                 ratio = aspect_ratio(contour)
                 circle = circularity(contour)
 
                 shape = classify_shape(vertices, circle, ratio)
-                print(f"Detected shape: {shape}, Vertices: {vertices}, Aspect Ratio: {ratio:.2f}, Circularity: {circle:.2f}")
+                print(f"Detected shape: {shape}, Vertices: {vertices}, Aspect Ratio: {ratio:.2f}, Circularity: {circle:.2f}, Area: {area:.2f}, Perimeter: {perimeter:.2f}")
                 x, y, w, h = bounding_box(contour)
+                feature_vector = [area, perimeter, vertices, ratio, circle]
 
+                save_sample(feature_vector, shape)
                 # Draw contour
                 cv2.drawContours(
                     display_frame,
@@ -71,7 +77,7 @@ def main():
                     2
                 )
 
-                # Draw bounding box
+                # bounding box
                 cv2.rectangle(
                     display_frame,
                     (x, y),
@@ -80,7 +86,7 @@ def main():
                     2
                 )
 
-                # Draw shape name
+                # shape name
                 cv2.putText(
                     display_frame,
                     shape,
