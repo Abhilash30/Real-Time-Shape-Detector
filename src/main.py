@@ -17,6 +17,9 @@ from features import circularity
 from features import corner_count
 from classifier import classify_shape
 from features import bounding_box
+import matplotlib.pyplot as plt
+from dataframe import df
+
 SAVE_DIR = "captures"
 WINDOW_ORIGINAL = "Original (BGR)"
 WINDOW_GRAY = "Grayscale"
@@ -52,8 +55,10 @@ def main():
             
             display_frame = frame.copy()
 
+            min_area = 100
+            max_area = 10000
+            contours = [c for c in contours if min_area < contour_area(c) < max_area]
 
-          
             for contour in contours:
                 
                 area = contour_area(contour)
@@ -97,6 +102,7 @@ def main():
                     2
                 )
 
+            
             cv2.imshow(WINDOW_CLOSING, display_frame)
             
             key = cv2.waitKey(1) & 0xFF
