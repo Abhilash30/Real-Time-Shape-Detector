@@ -4,9 +4,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
-
+import os
+import joblib
 from dataframe import df
 
+os.makedirs("models", exist_ok=True)
 
 feature_vector = [
     "area",
@@ -29,9 +31,9 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 
 
-scaler = StandardScaler()
+scaler = StandardScaler() 
 
-X_train_scaled = scaler.fit_transform(X_train)
+X_train_scaled = scaler.fit_transform(X_train) #Attaches numerical feature distribution in dataset 
 X_test_scaled = scaler.transform(X_test)
 
 
@@ -40,6 +42,8 @@ knn = KNeighborsClassifier(n_neighbors=3)
 
 knn.fit(X_train_scaled, y_train)
 
+# joblib.dump(knn, "models/knn.pkl") USED TO SAVE SCALER AND MODEL
+# joblib.dump(scaler, "models/scaler.pkl")
 
 predictions = knn.predict(X_test_scaled)
 

@@ -19,6 +19,11 @@ from classifier import classify_shape
 from features import bounding_box
 import matplotlib.pyplot as plt
 from dataframe import df
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+import joblib
+import os
+from sklearn.metrics import accuracy_score
 
 SAVE_DIR = "captures"
 WINDOW_ORIGINAL = "Original (BGR)"
@@ -27,8 +32,12 @@ WINDOW_BINARY = "Binary (Thresholded)"
 WINDOW_CLOSING = "Closing (clean binary)"
 WINDOW_CONTOURS = "Contours"
 def main():
+    
     os.makedirs(SAVE_DIR, exist_ok=True)
-    create_dataset()
+    knn = joblib.load("models/knn.pkl")
+    scaler = joblib.load("models/scaler.pkl")
+    print("KNN model loaded.")
+    print("Classes:", knn.classes_)
     cap = open_camera()
     if cap is None:
         return
@@ -67,12 +76,17 @@ def main():
                 ratio = aspect_ratio(contour)
                 circle = circularity(contour)
 
-                shape = classify_shape(vertices, circle, ratio)
-                print(f"Detected shape: {shape}, Vertices: {vertices}, Aspect Ratio: {ratio:.2f}, Circularity: {circle:.2f}, Area: {area:.2f}, Perimeter: {perimeter:.2f}")
+                
+               
                 x, y, w, h = bounding_box(contour)
-                feature_vector = [area, perimeter, vertices, ratio, circle]
+                feature_vector = [[area, perimeter, vertices, ratio, circle]]
+                
+                feature_vector_scaled = scaler.transform(feature_vector)  #scale incoming data to learned parameters
 
-                save_sample(feature_vector, shape)
+                shape = knn.predict(feature_vector_scaled)[0]
+                print(f"Detected shape: {shape}, Vertices: {vertices}, Aspect Ratio: {ratio:.2f}, Circularity: {circle:.2f}, Area: {area:.2f}, Perimeter: {perimeter:.2f}")
+                
+                
                 # Draw contour
                 cv2.drawContours(
                     display_frame,
