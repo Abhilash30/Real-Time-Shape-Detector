@@ -91,3 +91,6 @@ Add confidence/nearest-neighbor distance visualization
 Expand the dataset
 Detect more complex shapes
 
+Issues
+The triangle problem - either due to feature extraction/ contour detection the triangles are sometimes defined as squares
+The KNN problem - since KNN doesn't scale well even with standardization, shapes further away from the training data as sometimes classified wrongly or it just might be my training data.
