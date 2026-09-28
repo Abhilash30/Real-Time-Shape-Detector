@@ -17,13 +17,12 @@ from features import circularity
 from features import corner_count
 from classifier import classify_shape
 from features import bounding_box
-import matplotlib.pyplot as plt
 from dataframe import df
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 import joblib
 import os
-from sklearn.metrics import accuracy_score
+
 
 SAVE_DIR = "captures"
 WINDOW_ORIGINAL = "Original (BGR)"

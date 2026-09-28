@@ -62,14 +62,14 @@ def predict_knn_numpy(new_sample, X_train, y_train, k=3):
 
     distances = np.sqrt(np.sum((X_mat - sample) ** 2, axis=1))
     
-    # 2. Sort indices by distance (ascending)
+    # Sort indices by distance (ascending)
     sorted_indices = np.argsort(distances)
     
-    # 3. Extract the labels of the K nearest neighbors
+    #Extract the labels of the K nearest neighbors
     top_k_labels = y_arr[sorted_indices[:k]]
     
 
-    labels, counts = np.unique(top_k_labels, return_counts=True) #Gets the labels based on the frequency
+    labels, counts = np.unique(top_k_labels, return_counts=True)
     
 
     return labels[np.argmax(counts)]
