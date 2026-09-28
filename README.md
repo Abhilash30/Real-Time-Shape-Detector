@@ -1,7 +1,6 @@
 # Real-Time Shape Detector
 
-/home/abhilash/Projects/shape_detector/src/captures/frame_20260923_154535_800696.png
-
+<img width="640" height="480" alt="image" src="https://github.com/user-attachments/assets/cb207f98-a58a-45f2-83a1-d190fded0f72" />
 
 
 ## Overview
