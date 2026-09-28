@@ -12,6 +12,8 @@ The project processes webcam frames, extracts contours and
 handcrafted geometric features, and uses a K-Nearest Neighbors
 classifier to recognize shapes.
 
+Created an KNN ML model with 97% accuracy on self curated data extracted from a real-time webcam feed.
+
 ## Features
 
 - Real-time webcam detection
