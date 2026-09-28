@@ -1,5 +1,9 @@
 # Real-Time Shape Detector
 
+/home/abhilash/Projects/shape_detector/src/captures/frame_20260923_154535_800696.png
+
+
+
 ## Overview
 
 A real-time geometric shape detector built using OpenCV and
